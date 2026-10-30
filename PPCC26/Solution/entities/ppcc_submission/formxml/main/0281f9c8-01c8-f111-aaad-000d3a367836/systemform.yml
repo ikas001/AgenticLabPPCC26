@@ -58,6 +58,25 @@ systemform:
                         '@datafieldname': ppcc_fatality
                         '@disabled': false
                   - cell:
+                      '@id': '{9bb75575-1663-41ce-9444-c408b0eace65}'
+                      '@locklevel': 0
+                      '@colspan': 1
+                      '@rowspan': 4
+                      '@auto': true
+                      labels:
+                        label:
+                          '@description': Description
+                          '@languagecode': 1033
+                      control:
+                        '@id': ppcc_description
+                        '@classid': '{E0DECE4B-6FC8-4A8F-A065-082708572369}'
+                        '@datafieldname': ppcc_description
+                        '@disabled': false
+                  -
+                  -
+                  -
+                  -
+                  - cell:
                       '@id': '{8c72c85e-5dec-4d6c-9d61-940d832af5be}'
                       '@locklevel': 0
                       '@colspan': 1
