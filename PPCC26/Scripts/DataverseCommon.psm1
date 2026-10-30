@@ -43,12 +43,20 @@ function Connect-ToDataverse {
 
     $configPath = Join-Path $PSScriptRoot "config.json"
     $config = Get-Content -Path $configPath -Raw | ConvertFrom-Json
-    $ServerUrl = $config.target.ServerUrl
+    $ServerUrl = ($config.target.ServerUrl.Trim() -replace "\s+", "")
 
-    $ClientIdValue = "744835ed-bebe-4658-ac23-93173fc916ef"
-    $SecretValue = "N2R8Q~_IX_GPGgN0OZdmOb70v_sOUKITfA5IzcKX"
+    if ([string]::IsNullOrWhiteSpace($ServerUrl)) {
+        throw "ServerUrl is missing or empty in config.json."
+    }
 
-    $script:DataverseConnectionString = "AuthType=ClientSecret;ServiceUri=$($ServerUrl);ClientId=$($ClientIdValue);ClientSecret=$($SecretValue)";
+    $ClientIdValue = $config.target.ApplicationId.Trim()
+    $SecretValue = $config.target.ClientSecret.Trim()
+
+    if ([string]::IsNullOrWhiteSpace($ClientIdValue) -or [string]::IsNullOrWhiteSpace($SecretValue)) {
+        throw "ApplicationId or ClientSecret is missing in config.json."
+    }
+
+    $script:DataverseConnectionString = "AuthType=ClientSecret;ServiceUri=$($ServerUrl);ClientId=$($ClientIdValue);ClientSecret=$($SecretValue);TenantId=$($config.target.TenantId)";
 
     try {
         $conn = Get-CrmConnection -ConnectionString $script:DataverseConnectionString -ErrorAction Stop
@@ -66,7 +74,6 @@ function Connect-ToDataverse {
         exit 1
     }
 }
-
 function Get-DataverseConnection {
     [CmdletBinding()]
     param()
@@ -276,3 +283,5 @@ function Format-TableOrAttributeName {
 
 # Export functions to make them available to other scripts
 Export-ModuleMember -Function Import-RequiredModules, Connect-ToDataverse, Get-DataverseConnection, Confirm-SolutionExists, Get-CustomizationPrefix, Test-TableExists, Test-AttributeExists, Format-TableOrAttributeName
+
+
