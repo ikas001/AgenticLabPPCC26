@@ -19,4 +19,7 @@ function ppcc_customcaseOnLoad(executionContext) {
         return;
     }
 
+    // Type = Other: show and require "Other"
+    AI.FormUtilities.setupFieldVisibility(formContext, "ppcc_type", "ppcc_other", 100000004);
+    AI.FormUtilities.setupConditionalRequirement(formContext, "ppcc_type", "ppcc_other", 100000004);
 }

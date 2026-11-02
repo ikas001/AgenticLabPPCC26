@@ -32,7 +32,8 @@
             "referenceAttribute": "",
             "value": "100000000",
             "directivesJson": "{}",
-            "order": 1
+            "order": 1,
+            "status": "not yet implemented"
           }
         ]
       }

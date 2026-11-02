@@ -192,7 +192,7 @@ systemform:
       event:
         '@name': onload
         '@application': false
-        '@active': false
+        '@active': true
         Handlers:
           Handler:
             '@functionName': ppcc_customcaseOnLoad
